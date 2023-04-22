@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/registerFragment">
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.apppracme7.UI.View.RegisterFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.apppracme7.UI.View.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.example.apppracme7.UI.View.MainPageFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_mainPageFragment_to_mainMediaLibraryFragment"
+            app:destination="@id/mediaLibraryFragment" />
+        <action
+            android:id="@+id/action_mainPageFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaLibraryFragment"
+        android:name="com.example.apppracme7.UI.View.MediaLibraryFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_mediaLibraryFragment_to_mediaInfoFragment"
+            app:destination="@id/mediaInfoFragment" />
+        <action
+            android:id="@+id/action_mediaLibraryFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mediaInfoFragment"
+        android:name="com.example.apppracme7.UI.View.MediaInfoFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_mediaInfoFragment_to_mediaLibraryFragment"
+            app:destination="@id/mediaLibraryFragment" />
+    </fragment>
+</navigation>
