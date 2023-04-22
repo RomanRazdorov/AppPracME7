@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apppracme7.Data.Source.Media;
+import com.example.apppracme7.Data.Models.Media;
 import com.example.apppracme7.R;
 import com.example.apppracme7.UI.View.Holders.MediaHolder;
 

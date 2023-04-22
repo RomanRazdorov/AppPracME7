@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.apppracme7.Data.Source.Media;
+import com.example.apppracme7.Data.Models.Media;
 import com.example.apppracme7.R;
 import com.example.apppracme7.UI.View.Adapters.RecyclerViewAdapter;
 import com.example.apppracme7.UI.ViewModel.ViewModel;
