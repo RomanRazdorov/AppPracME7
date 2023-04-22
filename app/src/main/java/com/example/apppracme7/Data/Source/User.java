@@ -1,4 +1,4 @@
-package com.example.apppracme7.Source;
+package com.example.apppracme7.Data.Source;
 
 public class User {
     private String email;
