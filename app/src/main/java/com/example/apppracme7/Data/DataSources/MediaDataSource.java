@@ -12,12 +12,12 @@ import java.util.List;
 public class MediaDataSource {
     public LiveData<List<Media>> media(){
         MutableLiveData<List<Media>> result  = new  MutableLiveData<>();
-            ArrayList<Media> resultArr = new ArrayList<>();
-            for (int i = 1; i <= 100; i++) {
-                resultArr.add(new Media("Artist " + i, "Title " + i, R.drawable.the_beatles));
+        ArrayList<Media> resultArr = new ArrayList<>();
+        for (int i = 1; i <= 100; i++) {
+            resultArr.add(new Media("Artist " + i, "Title " + i, R.drawable.the_beatles));
 
-            }
-            result.postValue(resultArr);
+        }
+        result.postValue(resultArr);
 
 
         return result;

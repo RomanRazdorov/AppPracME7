@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.apppracme7.R;
-import com.example.apppracme7.UI.ViewModel.ViewModel;
+import com.example.apppracme7.UI.StateHolder.ViewModels.ViewModel;
 
 
 public class LoginFragment extends Fragment {
@@ -51,11 +51,6 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewModel userViewModel = new ViewModelProvider(this).get(ViewModel.class);
 
-        userViewModel.addUser(getResources().getString(R.string.default_user_email),
-                getString(R.string.default_user_password));
-        userViewModel.getUserID().observe(this, userID -> {
-            email.setText(userID.getUser().getEmail());
-            password.setText(userID.getUser().getPassword());
-        });
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.apppracme7.UI.View.Adapters;
+package com.example.apppracme7.UI.StateHolder.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apppracme7.Data.Models.Media;
 import com.example.apppracme7.R;
-import com.example.apppracme7.UI.View.Holders.MediaHolder;
+import com.example.apppracme7.UI.StateHolder.Holders.MediaHolder;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<MediaHolder> {
         this.media = media;
         this.myOnItemClickListener = myOnItemClickListener;
     }
+
 
     @NonNull
     @Override
@@ -45,6 +46,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<MediaHolder> {
                 myOnItemClickListener.onClick(media,holder.getAdapterPosition());
             }
         });
+    }
+
+    public void updateData(List<Media> newData) {
+        media = newData;
     }
 
     @Override

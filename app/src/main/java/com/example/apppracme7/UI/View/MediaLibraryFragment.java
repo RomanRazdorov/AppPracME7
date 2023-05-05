@@ -17,15 +17,18 @@ import android.widget.Toast;
 
 import com.example.apppracme7.Data.Models.Media;
 import com.example.apppracme7.R;
-import com.example.apppracme7.UI.View.Adapters.RecyclerViewAdapter;
-import com.example.apppracme7.UI.ViewModel.ViewModel;
+import com.example.apppracme7.UI.StateHolder.Adapters.RecyclerViewAdapter;
+import com.example.apppracme7.UI.StateHolder.ViewModels.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class MediaLibraryFragment extends Fragment {
     View view;
+    ViewModel viewModel;
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -37,18 +40,8 @@ public class MediaLibraryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ViewModel model = new ViewModelProvider(this).get(ViewModel.class);
         List<Media> mediaContent = new ArrayList<>();
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-
-
+        recyclerView = view.findViewById(R.id.recyclerView);
         RecyclerViewAdapter.MyOnItemClickListener listener = (media, position) -> {
             Log.i("RecyclerView", "Selected item " + position);
             Toast.makeText(getContext(), "Selected item " + position, Toast.LENGTH_SHORT).show();
@@ -59,16 +52,17 @@ public class MediaLibraryFragment extends Fragment {
         };
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        for (int i = 0; i < 10; i++) {
-            mediaContent.add(new Media("Linkin park","NUM",  R.drawable.linkin_park));
-        }
-        model.addMedia("name", "titile", 0);
-        model.getMediaUI().observe(this, mediaUI -> {
-            mediaContent.add(mediaUI.getMedia());
-        });
-
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mediaContent, listener);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel = new ViewModelProvider(this).get(ViewModel.class);
+        viewModel.getMedia().observe(getViewLifecycleOwner(), (value) -> {
+            ((RecyclerViewAdapter) Objects.requireNonNull(recyclerView.getAdapter())).updateData(value);
+        });
     }
 }

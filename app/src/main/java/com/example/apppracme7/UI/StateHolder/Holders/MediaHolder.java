@@ -1,4 +1,4 @@
-package com.example.apppracme7.UI.View.Holders;
+package com.example.apppracme7.UI.StateHolder.Holders;
 
 import android.view.View;
 import android.widget.ImageView;
