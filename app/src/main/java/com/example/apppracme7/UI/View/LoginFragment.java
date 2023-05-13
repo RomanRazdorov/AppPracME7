@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.PluralsRes;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -15,42 +16,53 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.apppracme7.R;
-import com.example.apppracme7.UI.StateHolder.ViewModels.ViewModel;
+import com.example.apppracme7.UI.StateHolder.ViewModels.MediaViewModel;
+import com.example.apppracme7.UI.StateHolder.ViewModels.UserDataViewModel;
 
 
 public class LoginFragment extends Fragment {
 
-    public LoginFragment(){
+    private UserDataViewModel userDataViewModel;
+
+    private EditText email;
+    private EditText password;
+
+    public LoginFragment() {
     }
-    EditText email;
-    EditText password;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        userDataViewModel = new ViewModelProvider(requireActivity()).get(UserDataViewModel.class);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         email = (EditText) view.findViewById(R.id.etEmail);
         password = (EditText) view.findViewById(R.id.etPassword);
-        Button btnReg = (Button) view.findViewById(R.id.btnLogin);
+        Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
 
-        btnReg.setOnClickListener(vie -> {
-            Bundle userData = new Bundle();
-            userData.putString("Email", email.getText().toString());
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainPageFragment,userData);
+        userDataViewModel.getUserDataLiveData().observe(getViewLifecycleOwner(), (value) -> {
+            if (value != null) {
+                    email.setText(value.getEmail());
+                    password.setText(value.getPassword());
+            }
 
         });
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ViewModel userViewModel = new ViewModelProvider(this).get(ViewModel.class);
+        btnLogin.setOnClickListener(vie -> {
+            Bundle userData = new Bundle();
+            userData.putString("Email", email.getText().toString());
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainPageFragment, userData);
 
-
+        });
     }
 }

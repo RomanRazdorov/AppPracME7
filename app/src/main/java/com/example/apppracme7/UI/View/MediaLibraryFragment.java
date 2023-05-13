@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.apppracme7.Data.Models.Media;
 import com.example.apppracme7.R;
 import com.example.apppracme7.UI.StateHolder.Adapters.RecyclerViewAdapter;
-import com.example.apppracme7.UI.StateHolder.ViewModels.ViewModel;
+import com.example.apppracme7.UI.StateHolder.ViewModels.MediaViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class MediaLibraryFragment extends Fragment {
     View view;
-    ViewModel viewModel;
+    MediaViewModel viewModel;
     RecyclerView recyclerView;
 
     @Nullable
@@ -40,6 +40,8 @@ public class MediaLibraryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        viewModel = new ViewModelProvider(this).get(MediaViewModel.class);
         List<Media> mediaContent = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerView);
         RecyclerViewAdapter.MyOnItemClickListener listener = (media, position) -> {
@@ -48,19 +50,24 @@ public class MediaLibraryFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("Title", media.getTitle());
             bundle.putString("Artist", media.getArtistName());
-            bundle.putInt("imageResource", media.getImageResourceId());
+            bundle.putString("imageResource", media.getImageFilePath());
         };
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mediaContent, listener);
         recyclerView.setAdapter(adapter);
 
+        viewModel.getMedia().observe(getViewLifecycleOwner(), (value) -> {
+            ((RecyclerViewAdapter) Objects.requireNonNull(recyclerView.getAdapter())).updateData(value);
+        });
+
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        viewModel = new ViewModelProvider(this).get(ViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MediaViewModel.class);
         viewModel.getMedia().observe(getViewLifecycleOwner(), (value) -> {
             ((RecyclerViewAdapter) Objects.requireNonNull(recyclerView.getAdapter())).updateData(value);
         });

@@ -1,13 +1,15 @@
 package com.example.apppracme7.Data.Models;
 
+import android.net.Uri;
+
 public class Media {
     private String artistName;
-    private int imageResourceId;
+    private String  imageFilePath;
     private String title;
 
-    public Media(String artistName, String title, int imageResourceId) {
+    public Media(String artistName, String title, String imageFilePath) {
         this.artistName = artistName;
-        this.imageResourceId = imageResourceId;
+        this.imageFilePath = imageFilePath;
         this.title = title;
     }
 
@@ -15,8 +17,8 @@ public class Media {
         return artistName;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public String getImageFilePath() {
+        return imageFilePath;
     }
     public String getTitle() {
         return title;
