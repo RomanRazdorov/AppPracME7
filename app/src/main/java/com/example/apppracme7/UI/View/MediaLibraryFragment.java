@@ -41,7 +41,6 @@ public class MediaLibraryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(MediaViewModel.class);
         List<Media> mediaContent = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerView);
         RecyclerViewAdapter.MyOnItemClickListener listener = (media, position) -> {
@@ -57,9 +56,6 @@ public class MediaLibraryFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mediaContent, listener);
         recyclerView.setAdapter(adapter);
 
-        viewModel.getMedia().observe(getViewLifecycleOwner(), (value) -> {
-            ((RecyclerViewAdapter) Objects.requireNonNull(recyclerView.getAdapter())).updateData(value);
-        });
 
 
     }
